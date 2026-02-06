@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>QBook — Checkout</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="container header__row">
+            <a class="brand" href="index.html">QBook</a>
+            <form id="globalSearch" class="search">
+                <input id="globalQuery" type="search" placeholder="Search books…">
+                <button class="icon-btn" type="submit">🔎</button>
+            </form>
+            <button id="themeToggle" class="icon-btn" title="Switch theme">🌓</button>
+            <button id="menuToggle" class="icon-btn menu-toggle" aria-label="Menu">☰</button>
+            <a class="icon-btn" href="profile.html" title="Profile">👤</a>
+        </div>
+    </header>
+    <nav id="mobileMenu" class="mobile-menu">
+        <a href="index.html">Home</a>
+        <a href="books.html">Books</a>
+        <a href="search.html">Search</a>
+        <a href="profile.html">Profile</a>
+        <a href="checkout.html">Cart</a>
+    </nav>
+
+    <main class="container container--wide main grid" style="grid-template-columns:1fr 360px">
+        <section class="card" style="padding:12px">
+            <h3 style="margin:4px 0 10px">Pickup & delivery</h3>
+            <div class="grid" style="gap:8px">
+                <input id="city" class="input" placeholder="City" required>
+                <input id="street" class="input" placeholder="Street, building" required>
+                <input id="comment" class="input" placeholder="Comment (optional)">
+            </div>
+
+            <h3 style="margin:16px 0 8px">Payment method</h3>
+            <div class="grid" style="gap:6px">
+                <label class="row" style="align-items:center"><input type="radio" name="pm" value="card" checked> Bank
+                    card</label>
+                <label class="row" style="align-items:center"><input type="radio" name="pm" value="cash"> Cash on
+                    pickup</label>
+            </div>
+
+            <div id="cardForm" class="grid" style="gap:8px; margin-top:10px">
+                <input id="ccName" class="input" placeholder="Cardholder name">
+                <input id="ccNum" class="input" placeholder="Card number (16 digits)" maxlength="19">
+                <div class="row">
+                    <input id="ccExp" class="input" placeholder="MM/YY" maxlength="5" style="width:120px">
+                    <input id="ccCvc" class="input" placeholder="CVC" maxlength="4" style="width:100px">
+                </div>
+            </div>
+        </section>
+
+        <aside class="card" style="padding:12px">
+            <h3 style="margin:4px 0 10px">Order</h3>
+            <div id="items"></div>
+            <div class="total" id="sum" style="border-top:1px solid var(--line); padding-top:8px"></div>
+            <button id="place" class="btn btn-primary" style="width:100%">Place order</button>
+        </aside>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer__row">
+            <div>© 2025 QBook</div>
+            <nav class="footer__nav"><a href="index.html">Home</a><a href="books.html">Books</a><a
+                    href="search.html">Search</a></nav>
+            <div>contact@qbook.example</div>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+    <script src="checkout.js"></script>
+</body>
+
+</html>

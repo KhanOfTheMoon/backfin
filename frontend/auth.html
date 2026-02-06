@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>QBook — Sign in / Sign up</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="container header__row">
+            <a class="brand" href="index.html">QBook</a>
+            <form id="globalSearch" class="search">
+                <input id="globalQuery" type="search" placeholder="Search books…">
+                <button class="icon-btn" type="submit">🔎</button>
+            </form>
+            <button id="themeToggle" class="icon-btn" title="Switch theme">🌓</button>
+            <button id="menuToggle" class="icon-btn menu-toggle" aria-label="Menu">☰</button>
+
+            <a class="icon-btn" href="checkout.html" title="Cart">🛒<span id="cartBadge" class="badge"
+                    style="display:none">0</span></a>
+        </div>
+    </header>
+    <nav id="mobileMenu" class="mobile-menu">
+        <a href="index.html">Home</a>
+        <a href="books.html">Books</a>
+        <a href="search.html">Search</a>
+        <a href="profile.html">Profile</a>
+        <a href="checkout.html">Cart</a>
+    </nav>
+
+    <main class="container main" style="display:grid; place-items:center">
+        <div class="card" style="width:min(560px,100%); padding:16px">
+            <h2 style="margin:6px 0 12px">Create account</h2>
+            <form id="regForm" class="grid" style="gap:10px">
+                <div class="row" style="gap:10px">
+                    <input class="input" id="firstName" placeholder="First name" required>
+                    <input class="input" id="lastName" placeholder="Last name" required>
+                </div>
+                <input class="input" id="email" type="email" placeholder="Email" required>
+                <div class="row" style="gap:10px">
+                    <input class="input" id="age" type="number" min="12" max="120" placeholder="Age" required>
+                    <select class="select" id="gender" required>
+                        <option value="">Gender</option>
+                        <option>Female</option>
+                        <option>Male</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <input class="input" id="password" type="password" placeholder="Password (min 6)" minlength="6"
+                    required>
+                <button class="btn btn-primary" type="submit">Sign up</button>
+            </form>
+
+            <hr style="border:none; border-top:1px solid var(--line); margin:16px 0">
+
+            <h3 style="margin:0 0 8px">Sign in</h3>
+            <form id="loginForm" class="grid" style="gap:10px">
+                <input class="input" id="lEmail" type="email" placeholder="Email" required>
+                <input class="input" id="lPassword" type="password" placeholder="Password" required>
+                <button class="btn btn-light" type="submit">Login</button>
+            </form>
+            <div id="authMsg" class="meta" style="margin-top:8px"></div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer__row">
+            <div>© 2025 QBook</div>
+            <nav class="footer__nav"><a href="index.html">Home</a><a href="books.html">Books</a><a
+                    href="search.html">Search</a></nav>
+            <div>contact@qbook.example</div>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+    <script src="auth.js"></script>
+</body>
+
+</html>

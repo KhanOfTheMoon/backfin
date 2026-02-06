@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>QBook — Books</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <header class="header">
+    <div class="container header__row">
+      <a class="brand" href="index.html">QBook</a>
+      <form id="globalSearch" class="search">
+        <input id="globalQuery" type="search" placeholder="Search books, authors, genres…">
+        <button class="icon-btn" type="submit" title="Search">🔎</button>
+      </form>
+      <button id="themeToggle" class="icon-btn" title="Switch theme">🌓</button>
+      <button id="menuToggle" class="icon-btn menu-toggle" aria-label="Menu">☰</button>
+      <a class="icon-btn" href="profile.html" title="Profile">👤</a>
+      <a class="icon-btn" href="checkout.html" title="Cart">🛒<span id="cartBadge" class="badge"
+          style="display:none">0</span></a>
+    </div>
+  </header>
+  <nav id="mobileMenu" class="mobile-menu">
+    <a href="index.html">Home</a>
+    <a href="books.html">Books</a>
+    <a href="search.html">Search</a>
+    <a href="profile.html">Profile</a>
+    <a href="checkout.html">Cart</a>
+  </nav>
+
+  <main class="container container--wide main" id="booksRoot"></main>
+
+  <footer class="footer">
+    <div class="container footer__row">
+      <div>© 2025 QBook</div>
+      <nav class="footer__nav">
+        <a href="index.html">Home</a>
+        <a href="books.html">Books</a>
+        <a href="search.html">Search</a>
+      </nav>
+      <div>contact@qbook.example</div>
+    </div>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+  <script src="books.js"></script>
+</body>
+
+</html>

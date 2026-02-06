@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>QBook — Login / Register</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <header class="header">
+    <div class="container header__row">
+      <a class="brand" href="index.html">QBook</a>
+      <form id="globalSearch" class="search">
+        <input id="globalQuery" type="search" placeholder="Search books, authors, genres…">
+        <button class="icon-btn" type="submit" title="Search">🔎</button>
+      </form>
+      <button id="themeToggle" class="icon-btn" title="Switch theme">🌓</button>
+      <button id="menuToggle" class="icon-btn menu-toggle" aria-label="Menu">☰</button>
+      <a class="icon-btn" href="books.html" title="Books">📚</a>
+    </div>
+  </header>
+  <nav id="mobileMenu" class="mobile-menu">
+    <a href="index.html">Home</a>
+    <a href="books.html">Books</a>
+    <a href="search.html">Search</a>
+    <a href="profile.html">Profile</a>
+    <a href="checkout.html">Cart</a>
+  </nav>
+
+  <main class="container main" style="display:grid;place-items:center;min-height:60vh">
+    <form id="authForm" class="card" style="padding:16px;max-width:420px;width:100%" novalidate>
+      <h2 style="margin:4px 0 12px">Login / Register</h2>
+      <div class="grid" style="gap:10px">
+        <input class="input" id="name" name="name" placeholder="Full name" required minlength="2">
+        <input class="input" id="email" name="email" type="email" placeholder="Email" required>
+        <input class="input" id="password" name="password" type="password" placeholder="Password (min 6)" required
+          minlength="6">
+        <button class="btn btn-primary" type="submit">Continue</button>
+      </div>
+    </form>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__row">
+      <div>© 2025 QBook</div>
+      <nav class="footer__nav"><a href="index.html">Home</a><a href="books.html">Books</a><a
+          href="search.html">Search</a></nav>
+      <div>contact@qbook.example</div>
+    </div>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="app.js"></script>
+  <script src="login.js"></script>
+</body>
+
+</html>
