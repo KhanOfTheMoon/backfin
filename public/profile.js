@@ -3,9 +3,9 @@ helpers.bindHeaderSearch('globalSearch','globalQuery');
 $(function(){
   const u = helpers.getUser();
   if(!u){
-    $('#info').html('<div class="meta">You are not signed in. Please use the Sign in / Sign up form.</div>');
-    return;
-  }
+  $('#info').html('<div class="meta">You are not signed in. <a href="login.html" style="color:var(--brand)">Click here to Sign in</a>.</div>');
+  return;
+}
   // подсчёт отзывов
   const st = helpers.read();
   let cnt = 0; Object.values(st.reviews||{}).forEach(arr=>cnt+=arr.length);

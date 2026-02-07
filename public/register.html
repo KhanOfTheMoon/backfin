@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>QBook — Register</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container header__row">
+            <a class="brand" href="index.html">QBook</a>
+            <div style="flex:1"></div> <a class="btn btn-light" href="login.html">Sign In</a>
+        </div>
+    </header>
+
+    <main class="container main" style="display:grid; place-items:center; min-height:80vh">
+        <div class="card" style="width:min(500px,100%); padding:24px">
+            <h2 style="margin:0 0 16px; text-align:center">Create Account</h2>
+            
+            <form id="regForm" class="grid" style="gap:12px">
+                <div class="row" style="gap:10px">
+                    <input class="input" id="firstName" placeholder="First name" required>
+                    <input class="input" id="lastName" placeholder="Last name" required>
+                </div>
+                
+                <input class="input" id="email" type="email" placeholder="Email address" required>
+                
+                <div class="row" style="gap:10px">
+                    <input class="input" id="age" type="number" min="12" max="120" placeholder="Age" required>
+                    <select class="select" id="gender" required>
+                        <option value="">Select Gender</option>
+                        <option value="Female">Female</option>
+                        <option value="Male">Male</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div style="background:var(--bg); padding:10px; border-radius:8px; border:1px solid var(--line)">
+                    <label class="meta" style="display:block; margin-bottom:6px">Select Role:</label>
+                    <div class="row">
+                        <label style="cursor:pointer; display:flex; align-items:center; gap:6px">
+                            <input type="radio" name="role" value="user" checked> User
+                        </label>
+                        <label style="cursor:pointer; display:flex; align-items:center; gap:6px">
+                            <input type="radio" name="role" value="admin"> Admin
+                        </label>
+                    </div>
+                </div>
+
+                <input class="input" id="password" type="password" placeholder="Password (min 6 chars)" minlength="6" required>
+                
+                <button class="btn btn-primary" type="submit" style="margin-top:8px">Register</button>
+            </form>
+
+            <div id="authMsg" class="meta" style="margin-top:16px; text-align:center; color: #e11d48;"></div>
+            
+            <div class="meta" style="text-align:center; margin-top:16px">
+                Already have an account? <a href="login.html" style="color:var(--brand); text-decoration:underline">Login here</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="app.js"></script>
+    <script src="auth.js"></script>
+</body>
+</html>

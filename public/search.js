@@ -1,57 +1,47 @@
 helpers.bindHeaderSearch('globalSearch','globalQuery');
 
-$(function(){
+$(async function(){
+  // Read URL params
   const initialQ = helpers.qs('q') || '';
   $('#globalQuery').val(initialQ);
 
-  // Популярные авторы
-  const freq={}; DB.forEach(b=>{freq[b.author]=(freq[b.author]||0)+1;});
-  const popular = Object.keys(freq).sort((a,b)=>freq[b]-freq[a]).slice(0,6);
-  popular.forEach(a=>{
-    $('#authorsBox').append(`<label class="row" style="align-items:center"><input type="checkbox" class="author" value="${a}"> ${a}</label>`);
-  });
+  $('#authorsBox').closest('div').hide(); 
 
-  function render(){
-    let items=[...DB];
-    const q=($('#globalQuery').val()||'').trim().toLowerCase();
-    if(q){
-      $('#hint').text(`Search: "${q}"`);
-      items = items.filter(b => b.title.toLowerCase().includes(q) ||
-                                b.author.toLowerCase().includes(q) ||
-                                b.genre.toLowerCase().includes(q));
-    }else $('#hint').text('Use search to filter results.');
+  // RENDER FUNCTION 
+  async function render(){
+    const q = $('#globalQuery').val().trim();
+    const minRating = $('#minRating').val();
+    const sort = $('#sort').val();
+    
+    $('#hint').text(q ? `Search results for: "${q}"` : 'All books');
+    $('#results').html('<div class="meta">Searching...</div>');
 
-    const authors=$('.author:checked').map((i,x)=>x.value).get();
-    if(authors.length) items=items.filter(b=>authors.includes(b.author));
+    // Build API URL
+    let url = `/books?sort=${sort}`;
+    if(q) url += `&q=${encodeURIComponent(q)}`;
+    if(minRating > 0) url += `&minRating=${minRating}`;
 
-    const minR=parseFloat($('#minRating').val()||0);
-    items=items.filter(b=>b.rating>=minR);
+    const books = await helpers.api(url);
 
-    const sort=$('#sort').val();
-    items.sort((a,b)=>{
-      if(sort==='az') return a.title.localeCompare(b.title);
-      if(sort==='rating') return b.rating-a.rating;
-      if(sort==='reviews') return b.reviews-a.reviews;
-      if(sort==='author') return a.author.localeCompare(b.author);
-      if(sort==='year') return b.year-a.year;
-      return 0;
-    });
+    const $box = $('#results').empty();
+    
+    if(!Array.isArray(books) || !books.length) {
+      return $box.html('<div class="muted">Nothing found…</div>');
+    }
 
-    const $box=$('#results').empty();
-    if(!items.length) return $box.html('<div class="muted">Nothing found…</div>');
-    items.forEach(b=>{
+    books.forEach(b => {
       $box.append(`
         <article class="card book-card">
           <img src="${b.cover}" alt="">
           <div class="p-3">
             <div class="meta">${b.author} • ${b.genre} • ${b.year}</div>
             <strong>${b.title}</strong>
-            <div class="meta">${helpers.stars(b.rating)} • ${b.reviews} reviews</div>
+            <div class="meta">${helpers.stars(b.rating)} • ${b.reviewsCount} reviews</div>
             <div class="row row--bottom">
               <div class="price">${helpers.money(b.price)}</div>
               <div class="row">
-                <a class="btn btn-light" href="books.html?id=${b.id}">Details</a>
-                <button class="btn btn-primary" onclick="helpers.addToCart('${b.id}')">Buy</button>
+                <a class="btn btn-light" href="books.html?id=${b._id}">Details</a>
+                <button class="btn btn-primary" onclick="helpers.addToCart('${b._id}')">Buy</button>
               </div>
             </div>
           </div>
@@ -60,7 +50,16 @@ $(function(){
     });
   }
 
-  $('#filters').on('input change','input,select',render);
-  $('#reset').on('click',()=>{$('.author').prop('checked',false); $('#minRating').val(0); $('#sort').val('az'); render();});
+  // Events
+  $('#filters').on('change','input,select', render);
+  $('#globalSearch').on('submit', (e) => { e.preventDefault(); render(); }); // Override header search to render in-place if we are already on search page
+  
+  $('#reset').on('click', () => {
+    $('#minRating').val(0); 
+    $('#sort').val('az'); 
+    $('#globalQuery').val('');
+    render();
+  });
+
   render();
 });

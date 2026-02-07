@@ -1,20 +1,28 @@
 helpers.bindHeaderSearch('globalSearch','globalQuery');
 
-$(function(){
-  // Если пришли с Buy now
-  const buy = helpers.qs('buy');
-  if(buy) helpers.addToCart(buy);
+$(async function(){
+  // If "Buy Now" clicked, add to cart immediately
+  const buyId = helpers.qs('buy');
+  if(buyId) helpers.addToCart(buyId);
 
-  const cart = helpers.getCart();
-  const $items = $('#items'); let total=0;
+  const cartIds = helpers.getCart();
+  const $items = $('#items'); 
+  let total = 0;
 
-  if(!cart.length){
+  if(!cartIds.length){
     $items.html('<div class="meta">Cart is empty.</div>');
     $('#place').prop('disabled',true);
-  }else{
-    cart.forEach(id=>{
-      const b = DB.find(x=>x.id===id); if(!b) return;
-      total+=b.price;
+  } else {
+    $items.html('Loading cart items...');
+    
+    const promises = cartIds.map(id => helpers.api(`/books/${id}`));
+    const books = await Promise.all(promises);
+    
+    $items.empty();
+    
+    books.forEach(b => {
+      if(!b || b.msg) return; // Skip if deleted/error
+      total += b.price;
       $items.append(`
         <div class="row" style="justify-content:space-between;align-items:center;margin-bottom:8px">
           <div class="row" style="align-items:center; gap:10px">
@@ -25,15 +33,15 @@ $(function(){
         </div>
       `);
     });
+    
     $('#sum').html(`<span>Total</span><span>${helpers.money(total)}</span>`);
   }
 
-  // переключение формы оплаты
+  // Toggle payment form
   $('input[name="pm"]').on('change', function(){
     $('#cardForm').toggle($(this).val()==='card');
   }).trigger('change');
 
-  // простая валидация карты
   function validCard(){
     if($('input[name="pm"]:checked').val()!=='card') return true;
     const num = $('#ccNum').val().replace(/\s+/g,'');
@@ -42,22 +50,37 @@ $(function(){
     return /^[0-9]{16}$/.test(num) && /^[0-1][0-9]\/[0-9]{2}$/.test(exp) && /^[0-9]{3,4}$/.test(cvc);
   }
 
-  $('#place').on('click', function(){
-    const city=$('#city').val().trim(), street=$('#street').val().trim();
-    if(!cart.length) return alert('Cart is empty.');
+  $('#place').on('click', async function(){
+    if(!helpers.isLogged()) return alert('Please sign in to place an order.');
+    if(!cartIds.length) return alert('Cart is empty.');
+    
+    const city = $('#city').val().trim();
+    const street = $('#street').val().trim();
+    
     if(!city || !street) return alert('Fill city and street.');
-    if(!validCard()) return alert('Check card fields (number, MM/YY, CVC).');
+    if(!validCard()) return alert('Check card fields.');
 
-    helpers.clearCart();
-    alert('Order placed! Thank you.');
-    location.href='index.html';
+    const orderData = {
+      items: cartIds.map(id => ({ book: id, quantity: 1, price: 0 })), 
+      shippingDetails: { city, street, paymentMethod: $('input[name="pm"]:checked').val() },
+      total: total
+    };
+
+    const res = await helpers.api('/orders', 'POST', orderData);
+
+    if(res._id) {
+      helpers.clearCart();
+      alert('Order placed! Thank you.');
+      location.href = 'index.html';
+    } else {
+      alert(res.msg || 'Error placing order');
+    }
   });
 
-  // auto-format номера карты (XXXX XXXX XXXX XXXX)
+  // Card Formatting
   $('#ccNum').on('input', function(){
     this.value=this.value.replace(/\D/g,'').slice(0,16).replace(/(.{4})/g,'$1 ').trim();
   });
-  // авто-формат MM/YY
   $('#ccExp').on('input', function(){
     let v=this.value.replace(/\D/g,'').slice(0,4);
     if(v.length>=3) v=v.slice(0,2)+'/'+v.slice(2);

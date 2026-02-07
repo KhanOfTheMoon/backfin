@@ -7,19 +7,43 @@ const User = require('../models/User');
 // Register
 router.post('/register', async (req, res) => {
   try {
-    const { firstName, lastName, email, password, age, gender } = req.body;
+    const { firstName, lastName, email, password, age, gender, role } = req.body;
+
     let user = await User.findOne({ email });
     if (user) return res.status(400).json({ msg: 'User already exists' });
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    user = new User({ firstName, lastName, email, password: hashedPassword, age, gender });
+    const isAdmin = role === 'admin';
+
+    user = new User({ 
+      firstName, 
+      lastName, 
+      email, 
+      password: hashedPassword, 
+      age, 
+      gender,
+      isAdmin // Save the role status
+    });
+
     await user.save();
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    res.json({ token, user: { firstName, lastName, email, age, gender } });
+    const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    
+    res.json({ 
+      token, 
+      user: { 
+        firstName, 
+        lastName, 
+        email, 
+        age, 
+        gender, 
+        isAdmin 
+      } 
+    });
   } catch (err) {
+    console.error(err);
     res.status(500).send('Server error');
   }
 });
@@ -34,8 +58,19 @@ router.post('/login', async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ msg: 'Invalid credentials' });
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    res.json({ token, user: { firstName: user.firstName, lastName: user.lastName, email, age: user.age, gender: user.gender } });
+    const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    
+    res.json({ 
+      token, 
+      user: { 
+        firstName: user.firstName, 
+        lastName: user.lastName, 
+        email: user.email, 
+        age: user.age, 
+        gender: user.gender,
+        isAdmin: user.isAdmin 
+      } 
+    });
   } catch (err) {
     res.status(500).send('Server error');
   }

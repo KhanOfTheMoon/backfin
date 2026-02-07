@@ -1,35 +1,55 @@
-helpers.bindHeaderSearch('globalSearch','globalQuery');
-
 $(function(){
-  // Автозаполнение почты из бд
-  const KEY='qbook_users';
-  const users = JSON.parse(localStorage.getItem(KEY) || '{}');
-
-  $('#regForm').on('submit', function(e){
+  // REGISTER LOGIC 
+  $('#regForm').on('submit', async function(e){
     e.preventDefault();
-    const u = {
-      firstName:$('#firstName').val().trim(),
+    
+    // Validate inputs
+    const p1 = $('#password').val();
+    if(p1.length < 6) return $('#authMsg').text('Password must be at least 6 characters.');
+
+    const data = {
+      firstName: $('#firstName').val().trim(),
       lastName: $('#lastName').val().trim(),
-      email:    $('#email').val().trim().toLowerCase(),
-      age:      +$('#age').val(),
-      gender:   $('#gender').val(),
-      password: $('#password').val()
+      email: $('#email').val().trim().toLowerCase(),
+      age: +$('#age').val(),
+      gender: $('#gender').val(),
+      role: $('input[name="role"]:checked').val(),
+      password: p1
     };
-    if(users[u.email]) return $('#authMsg').text('User already exists.');
-    users[u.email]=u;
-    localStorage.setItem(KEY, JSON.stringify(users));
-    helpers.setUser({firstName:u.firstName,lastName:u.lastName,email:u.email,age:u.age,gender:u.gender});
-    $('#authMsg').text('Registered & signed in.');
-    location.href='profile.html';
+    
+    $('#authMsg').text('Creating account...').css('color', 'var(--muted)');
+    
+    const res = await helpers.api('/auth/register', 'POST', data);
+    
+    if(res.token) {
+      localStorage.setItem('token', res.token);
+      helpers.setUser(res.user);
+      $('#authMsg').text('Success! Redirecting...').css('color', 'green');
+      setTimeout(() => location.href='profile.html', 1000);
+    } else {
+      $('#authMsg').text(res.msg || 'Registration failed.').css('color', 'red');
+    }
   });
 
-  $('#loginForm').on('submit', function(e){
+  // LOGIN LOGIC 
+  $('#loginForm').on('submit', async function(e){
     e.preventDefault();
-    const email=$('#lEmail').val().trim().toLowerCase();
-    const pass =$('#lPassword').val();
-    const u=users[email];
-    if(!u || u.password!==pass) return $('#authMsg').text('Wrong email or password.');
-    helpers.setUser({firstName:u.firstName,lastName:u.lastName,email:u.email,age:u.age,gender:u.gender});
-    $('#authMsg').text('Signed in.'); location.href='profile.html';
+    const data = {
+      email: $('#lEmail').val().trim().toLowerCase(),
+      password: $('#lPassword').val()
+    };
+    
+    $('#authMsg').text('Signing in...').css('color', 'var(--muted)');
+
+    const res = await helpers.api('/auth/login', 'POST', data);
+    
+    if(res.token) {
+      localStorage.setItem('token', res.token);
+      helpers.setUser(res.user);
+      $('#authMsg').text('Success! Redirecting...').css('color', 'green');
+      setTimeout(() => location.href='profile.html', 1000);
+    } else {
+      $('#authMsg').text(res.msg || 'Invalid email or password.').css('color', 'red');
+    }
   });
 });
