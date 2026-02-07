@@ -1,4 +1,5 @@
-// Общие помощники и состояние
+const API_URL = '/api'; 
+
 window.helpers = (function () {
   const stateKey = 'qbook_state';
 
