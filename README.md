@@ -1,4 +1,4 @@
-<img width="521" height="895" alt="image" src="https://github.com/user-attachments/assets/8339b5de-3edb-4f4f-ba8e-d47a8f270afa" /><img width="521" height="895" alt="image" src="https://github.com/user-attachments/assets/8339b5de-3edb-4f4f-ba8e-d47a8f270afa" /># Assignment 4 — Web Tech 2
+# Assignment 4 — Web Tech 2
 
 **Project:** QBook  
 **Student:** Aibek Nurtay  
