@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Book = require('../models/Book');
-const auth = require('../middleware/auth');
+const {auth,admin} = require('../middleware/auth');
 
 // Get All Books
 router.get('/', async (req, res) => {
@@ -60,6 +60,40 @@ router.post('/:id/reviews', auth, async (req, res) => {
     await book.save();
     res.json(book.reviews);
   } catch (err) {
+    res.status(500).send('Server Error');
+  }
+});
+
+router.post('/', auth, async (req, res) => {
+  try {
+    const newBook = new Book(req.body);
+    const savedBook = await newBook.save();
+    res.json(savedBook);
+  } catch (err) {
+    res.status(500).send('Server Error');
+  }
+});
+
+router.put('/:id', auth, async (req, res) => {
+  try {
+    const updatedBook = await Book.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.json(updatedBook);
+  } catch (err) {
+    res.status(500).json({ error: "Server Error" });
+  }
+});
+
+router.delete('/:id', auth, admin, async (req, res) => {
+  try {
+    const book = await Book.findByIdAndDelete(req.params.id);
+    
+    if (!book) {
+      return res.status(404).json({ msg: 'Book not found' });
+    }
+
+    res.json({ msg: 'Book successfully deleted from database' });
+  } catch (err) {
+    console.error(err.message);
     res.status(500).send('Server Error');
   }
 });
