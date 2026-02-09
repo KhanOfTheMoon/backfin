@@ -283,7 +283,7 @@ Main packages:
 
 ## 9) Postman Collection Requirements (User vs Admin)
 AUTH:
-Register user: <img width="521" height="895" alt="image" src="https://github.com/user-attachments/assets/4d0aa718-5e7d-47b0-9f6a-fbc79c6cde0b" width="200"/>
+Register user: <img width="521" height="895" alt="image" src="https://github.com/user-attachments/assets/4d0aa718-5e7d-47b0-9f6a-fbc79c6cde0b" width=50%/>
 Login: <img width="512" height="891" alt="image" src="https://github.com/user-attachments/assets/57cb1aa8-2843-462e-862c-071f58d36eae" width="200"/>
 Login failed: <img width="519" height="533" alt="image" src="https://github.com/user-attachments/assets/298a06cc-7a4d-439d-8390-04b818ee01ec" width="200"/>
 
