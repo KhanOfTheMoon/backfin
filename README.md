@@ -283,21 +283,21 @@ Main packages:
 
 ## 9) Postman Collection Requirements (User vs Admin)
 AUTH:
-Register user: <img width="521" height="895" alt="image" src="https://github.com/user-attachments/assets/4d0aa718-5e7d-47b0-9f6a-fbc79c6cde0b" width=50%/>
-Login: <img width="512" height="891" alt="image" src="https://github.com/user-attachments/assets/57cb1aa8-2843-462e-862c-071f58d36eae" width="200"/>
-Login failed: <img width="519" height="533" alt="image" src="https://github.com/user-attachments/assets/298a06cc-7a4d-439d-8390-04b818ee01ec" width="200"/>
+Register user: <img width="50%"  alt="image" src="https://github.com/user-attachments/assets/4d0aa718-5e7d-47b0-9f6a-fbc79c6cde0b" />
+Login: <img  width="50%" alt="image" src="https://github.com/user-attachments/assets/57cb1aa8-2843-462e-862c-071f58d36eae" />
+Login failed: <img width="50%" alt="image" src="https://github.com/user-attachments/assets/298a06cc-7a4d-439d-8390-04b818ee01ec" />
 
 BOOKS:
-Get all: <img width="1181" height="1130" alt="image" src="https://github.com/user-attachments/assets/2d8bd159-f7d3-40e7-a75e-7eee5c04411c" width="400"/>
-Get single book: <img width="1145" height="793" alt="image" src="https://github.com/user-attachments/assets/07f91f27-eafc-405f-8b7e-1102b4362f33" width="400"/>
-Search books: <img width="1165" height="1132" alt="image" src="https://github.com/user-attachments/assets/c4589391-88a5-42cb-85df-d69aa9560d9e" width="400"/>
-Get non existed book: <img width="755" height="504" alt="image" src="https://github.com/user-attachments/assets/73ac6b12-43ea-4bfc-a2a0-04a7fe721514" width="400"/>
-Creating new book: <img width="598" height="895" alt="image" src="https://github.com/user-attachments/assets/f26799ef-cdd0-4934-8102-4df930044e8b" width="400"/>
-Updating existing book: <img width="1089" height="917" alt="image" src="https://github.com/user-attachments/assets/bc82269c-dc86-48e9-a1ab-8fbf7b3c9fda" width="400"/>
-Deleting book by admin: <img width="721" height="522" alt="image" src="https://github.com/user-attachments/assets/29aab6af-ff4e-400a-8f6b-77f81de70386" width="400"/>
-Deleting by user: <img width="754" height="515" alt="image" src="https://github.com/user-attachments/assets/5ebc9877-7d1d-4c60-8439-e4e82eb65a33" width="400"/>
-Deleting by admin: <img width="785" height="514" alt="image" src="https://github.com/user-attachments/assets/506ac8ea-17e1-437c-ba20-187f67d4f861" width="400"/>
+Get all: <img width="50%" alt="image" src="https://github.com/user-attachments/assets/2d8bd159-f7d3-40e7-a75e-7eee5c04411c" width="400"/>
+Get single book: <img width="50%" alt="image" src="https://github.com/user-attachments/assets/07f91f27-eafc-405f-8b7e-1102b4362f33" width="400"/>
+Search books: <img width="50%" alt="image" src="https://github.com/user-attachments/assets/c4589391-88a5-42cb-85df-d69aa9560d9e" width="400"/>
+Get non existed book: <img width="50%" alt="image" src="https://github.com/user-attachments/assets/73ac6b12-43ea-4bfc-a2a0-04a7fe721514" width="400"/>
+Creating new book: <img width="50%" alt="image" src="https://github.com/user-attachments/assets/f26799ef-cdd0-4934-8102-4df930044e8b" width="400"/>
+Updating existing book: <img width="50%" alt="image" src="https://github.com/user-attachments/assets/bc82269c-dc86-48e9-a1ab-8fbf7b3c9fda" width="400"/>
+Deleting book by admin: <img width="50%" alt="image" src="https://github.com/user-attachments/assets/29aab6af-ff4e-400a-8f6b-77f81de70386" width="400"/>
+Deleting by user: <img width="50%" alt="image" src="https://github.com/user-attachments/assets/5ebc9877-7d1d-4c60-8439-e4e82eb65a33" width="400"/>
+Deleting by admin: <img width="50%" alt="image" src="https://github.com/user-attachments/assets/506ac8ea-17e1-437c-ba20-187f67d4f861" width="400"/>
 
 ACTIONS:
-Adding review: <img width="805" height="783" alt="image" src="https://github.com/user-attachments/assets/7bde1b7b-81cb-4706-b04a-a8e3f156f275" width="350"/>
-Adding order: <img width="655" height="1139" alt="image" src="https://github.com/user-attachments/assets/23e547ef-8254-483c-912b-b9633a7404da" width="350"/>
+Adding review: <img width="50%" alt="image" src="https://github.com/user-attachments/assets/7bde1b7b-81cb-4706-b04a-a8e3f156f275" width="350"/>
+Adding order: <img width="50%" alt="image" src="https://github.com/user-attachments/assets/23e547ef-8254-483c-912b-b9633a7404da" width="350"/>
